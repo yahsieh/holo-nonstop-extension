@@ -1,0 +1,19 @@
+{
+    "name": "test ext",
+    "version": "0.0.1",
+    "description": "",
+    "content_scripts": [{
+        "matches": ["https://www.youtube.com/*"],
+        "js": ["script.js"]
+    }],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "options_page": "options.html",
+    "permissions": [
+        "tabs",
+        "storage"
+    ],
+    "manifest_version": 2
+}

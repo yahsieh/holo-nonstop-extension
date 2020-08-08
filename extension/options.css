@@ -1,0 +1,13 @@
+ul{list-style:none;}
+.poll-options ul li{margin-bottom:20px;}
+.poll-options ul li .po-number,.poll-options ul li .form-control{display:inline-block;}
+.poll-options ul li .po-number {
+    width: 5%;
+    margin-right: 2%;
+    text-align: right;
+    font-family: 'Rockwell', Arial;
+    font-size: 20px;
+    color: #888;
+}
+.poll-options ul li .form-control{width:80%;}
+.poll-options ul li i{cursor:pointer;margin-left:5px;}
