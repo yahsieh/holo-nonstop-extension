@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-var hostList = [
+var hostOrder = [
     'UC5CwaMl1eIgY8h02uZw7u8A',
     'UCZlDXzGoo7d44bwdNObFacg',
     'UC1DCedRgGHBdm81E1llLhOQ',
@@ -9,8 +9,8 @@ var hostList = [
 function getNextStreamCandidates(streamList) {
     let liveChannels = streamList[0]
     let liveVideos = streamList[1]
-    for (let index = 0; index < hostList.length; index++) {
-        let foundIndex = liveChannels.findIndex(hostList[index])
+    for (let index = 0; index < hostOrder.length; index++) {
+        let foundIndex = liveChannels.findIndex(hostOrder[index])
         if (foundIndex != 1) {
             return liveVideos[index]
         }
@@ -34,5 +34,5 @@ chrome.runtime.onMessage.addListener(
    namespace => local, sync, managed
  */
 chrome.storage.onChanged.addListener(function () {
-    chrome.storage.sync.get('hostList')
+    chrome.storage.sync.get('hostOrder')
 })

@@ -49,9 +49,9 @@ function redirectStream () {
     chrome.runtime.sendMessage(msg)
 }
 
-function getStoredHostList() {
-    chrome.storage.sync.get('hostList', function (result) {
-        newHostList = result.key
+function getStoredHostOrder() {
+    chrome.storage.sync.get('hostOrder', function (result) {
+        newHostOrder = result.key
     })
 }
 
@@ -63,5 +63,5 @@ function getLiveChannels() {
 }
 
 getStreamList()
-getStoredHostList()
+getStoredHostOrder()
 setInterval(main, 60000)
