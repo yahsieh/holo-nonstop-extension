@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>My Test Extension Options</title>
-    <link rel="stylesheet" type="text/css" href="options.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="lib/all.min.css">
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap.bundle.min.js"></script>
-    <script src="lib/all.min.js"></script>
-    <script src="options.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/multi-select.dist.css">
+    <script src="lib/jquery.min.js" type="text/javascript"></script>
+    <script src="lib/bootstrap.min.js" type="text/javascript"></script>
+    <script src="options.js" type="text/javascript" defer="defer"></script>
 </head>
+
 <body>
-
-<a href="#" class="btn btn-vote" id="addOption"><i class="fas fa-plus"></i> Add Option</a>
-
-<div class="poll-options">
-    <ul>
-    <li><span class="po-number">1</span><input type="text" class="form-control" id="pollOption-1" placeholder="Option 1"></li>
-    </ul>
-</div>
-<button id="save">Save</button>
-
-<script src="options.js"></script>
+    <div>
+    <select multiple="multiple" id="my-select">
+        <option value='elem_1'>elem 1</option>
+        <option value='elem_2'>elem 2</option>
+        <option value='elem_3'>elem 3</option>
+        <option value='elem_4'>elem 4</option>
+    </select>
+    <br/>
+    <button type="button" class="btn btn-success" id="save">Save</button>
+    <button type="button" class="btn btn-info" id="load">Load</button>
+    <button type="button" class="btn btn-danger" id="deselect-all">Clear all selected</button>
+    </div>
+    <span id="status"></span>
 </body>
+
+<script src="lib/jquery.multi-select.js" type="text/javascript"></script>
 </html>

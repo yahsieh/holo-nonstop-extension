@@ -1,31 +1,32 @@
 /* eslint-disable no-undef */
 // Saves options to chrome.storage
 
-$("#addOption").click(function () {
-    let id = $(".poll-options ul").children().length + 1;
-    let qOption = '<li><span class="po-number">'+ id +'</span><input type="text" class="form-control" id="pollOption-'+ id +'" placeholder="Option '+ id +' "><i class="fas fa-times remove-this"></i></li>';
-    $(".poll-options ul").append(qOption);
-});
+$('#my-select').multiSelect({ keepOrder: true })
 
-$(".poll-options").on("click", ".remove-this", function() {
-    $(this).closest("li").remove();
-});
+$('#deselect-all').click(function () {
+    $('#my-select').multiSelect('deselect_all')
+    $('#my-select').multiSelect('refresh')
+})
 
-// function save_options() {
-//     var color = document.getElementById('color').value;
-//     var likesColor = document.getElementById('like').checked;
-//     chrome.storage.sync.set({
-//         favoriteColor: color,
-//         likesColor: likesColor
-//     }, function() {
-//         // Update status to let user know options were saved.
-//         var status = document.getElementById('status');
-//         status.textContent = 'Options saved.';
-//         setTimeout(function() {
-//             status.textContent = '';
-//         }, 750);
-//     });
-// }
+
+
+function save_options() {
+    let newList = []
+    selectedCount = $('.ms-elem-selection[style=""] > span').length
+    for (let index = 0; index < selectedCount; index++) {
+        newList.push($('.ms-elem-selection[style=""] > span')[index].textContent)
+    }
+    chrome.storage.sync.set({
+        hostlist: newList
+    }, function () {
+        // Update status to let user know options were saved.
+        let status = document.getElementById('status');
+        status.textContent = 'Options saved.';
+        setTimeout(function () {
+            status.textContent = '';
+        }, 750);
+    });
+}
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
@@ -40,5 +41,4 @@ $(".poll-options").on("click", ".remove-this", function() {
 //     });
 // }
 // document.addEventListener('DOMContentLoaded', restore_options);
-// document.getElementById('save').addEventListener('click',
-//    save_options);
+document.getElementById('save').addEventListener('click', save_options);
