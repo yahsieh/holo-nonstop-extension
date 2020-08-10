@@ -4,14 +4,14 @@ var currentTabId = -1
 
 function init() {
     chrome.tabs.query({
-            active: true,
-            lastFocusedWindow: true,
-            url: ['https://www.youtube.com/*']
-        }
+        active: true,
+        lastFocusedWindow: true,
+        url: ['https://www.youtube.com/*']
+    }
         , function (tabs) {
             currentTabId = tabs[0].id
             restore_options()
-    })
+        })
 }
 function restore_options() {
     chrome.storage.sync.get({
@@ -23,7 +23,10 @@ function restore_options() {
 }
 
 document.addEventListener('DOMContentLoaded', init)
+document.getElementById('optionButton').addEventListener('click', function () {
+    chrome.runtime.openOptionsPage()
+})
 $('#toggle').change(function () {
     let status = document.getElementById('toggle').checked
-    status ? chrome.storage.sync.set({[currentTabId]: 'on'}) : chrome.storage.sync.set({[currentTabId]: 'off'})
+    status ? chrome.storage.sync.set({ [currentTabId]: 'on' }) : chrome.storage.sync.set({ [currentTabId]: 'off' })
 })
