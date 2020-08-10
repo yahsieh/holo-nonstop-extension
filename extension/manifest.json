@@ -1,7 +1,7 @@
 {
-    "name": "test ext",
+    "name": "holo-nonstop-extension",
     "version": "0.0.1",
-    "description": "",
+    "description": "Enjoy Hololive content continuously",
     "content_scripts": [{
         "matches": ["https://www.youtube.com/*"],
         "js": ["script.js"]
@@ -11,7 +11,11 @@
         "persistent": false
     },
     "options_page": "options.html",
+    "page_action": {
+        "default_popup": "popup.html"
+    },
     "permissions": [
+        "declarativeContent",
         "tabs",
         "storage"
     ],

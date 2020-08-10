@@ -7,7 +7,7 @@ function getNextStreamCandidates(streamList) {
     for (let index = 0; index < hostOrder.length; index++) {
         let foundIndex = liveChannels.indexOf(getChannelId(hostOrder[index]))
         if (foundIndex != -1) {
-            return liveVideos[index]
+            return liveVideos[foundIndex]
         }
     }
     return liveVideos[0]
@@ -79,16 +79,32 @@ function getChannelId(channelName) {
 
 chrome.runtime.onMessage.addListener(
     function (request, sender) {
-        if (request.ended) {
-            nextVideoId = getNextStreamCandidates(request.nextStream)
-            chrome.tabs.update(
-                sender.tab.id, { url: 'https://www.youtube.com/watch?v=' + nextVideoId }
-            )
-        }
+        chrome.storage.sync.get({ [sender.tab.id]: 'off' }, function (items) {
+            if (request.ended && items[sender.tab.id] == 'on') {
+                nextVideoId = getNextStreamCandidates(request.nextStream)
+                chrome.tabs.update(
+                    sender.tab.id, { url: 'https://www.youtube.com/watch?v=' + nextVideoId }
+                )
+            }
+        })
     }
 )
 
 chrome.storage.onChanged.addListener(function () {
     updatehostOrder()
 })
+
+chrome.runtime.onInstalled.addListener(function (details) {
+    chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
+        chrome.declarativeContent.onPageChanged.addRules([{
+            conditions: [
+                new chrome.declarativeContent.PageStateMatcher({
+                    pageUrl: { hostEquals: 'www.youtube.com', schemes: ['https'] }
+                })
+            ],
+            actions: [new chrome.declarativeContent.ShowPageAction()]
+        }])
+    })
+})
+
 updatehostOrder()
