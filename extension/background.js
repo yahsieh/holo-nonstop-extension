@@ -10,7 +10,10 @@ function getNextStreamCandidates(streamList) {
             return liveVideos[foundIndex]
         }
     }
-    return liveVideos[0]
+    if (liveVideos.length != 0)
+        return liveVideos[0]
+    else
+        return ''
 }
 
 function updatehostOrder() {
