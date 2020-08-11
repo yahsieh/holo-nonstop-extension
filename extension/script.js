@@ -2,9 +2,11 @@
 /* eslint-disable no-console */
 var streamList = {}
 var lastStatus = 'unfound'
+var failedCount = 0
 
 function main() {
-    getStreamList()
+    if (failedCount < 10)
+        getStreamList()
     let newStatus = getCurrentLiveStatus()
     if (newStatus == 'ended' && lastStatus == 'live') {
         lastStatus = newStatus
@@ -26,12 +28,15 @@ function getCurrentLiveStatus() {
             let liveStreams = streamList.live.map(item => item.yt_video_key)
             let endStreams = streamList.ended.map(item => item.yt_video_key)
             if (liveStreams.includes(params.get('v'))) {
+                failedCount = 0
                 return 'live'
             }
             else if (endStreams.includes(params.get('v'))) {
+                failedCount = 0
                 return 'ended'
             }
             else {
+                failedCount++
                 return 'unfound'
             }
         } catch (e) {
