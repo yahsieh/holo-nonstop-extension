@@ -1,5 +1,6 @@
 {
     "name": "holo-nonstop-extension",
+    "author": "k4r1suma",
     "version": "0.0.1",
     "description": "Enjoy Hololive content continuously",
     "content_scripts": [{
