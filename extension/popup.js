@@ -13,6 +13,7 @@ function init() {
             restore_options()
         })
 }
+
 function restore_options() {
     chrome.storage.sync.get({
         [currentTabId]: 'off'
@@ -23,9 +24,6 @@ function restore_options() {
 }
 
 document.addEventListener('DOMContentLoaded', init)
-document.getElementById('optionButton').addEventListener('click', function () {
-    chrome.runtime.openOptionsPage()
-})
 $('#toggle').change(function () {
     let status = document.getElementById('toggle').checked
     status ? chrome.storage.sync.set({ [currentTabId]: 'on' }) : chrome.storage.sync.set({ [currentTabId]: 'off' })

@@ -3,56 +3,99 @@
 
 <head>
     <meta charset="utf-8">
-    <style>
-        .app {
-            width: 230px;
-        }
-
-        .icon {
-            width: 24px;
-            margin-right: 10px;
-        }
-
-        .extension-name-container {
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .extension-name {
-            font-size: 16px;
-        }
-
-        .extension-description {
-            padding: 10px 2px 10px 2px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="popup.css">
     <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="lib/bootstrap4-toggle.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/multi-select.dist.css">
     <script src="lib/jquery.min.js" type="text/javascript"></script>
     <script src="lib/bootstrap.min.js" type="text/javascript"></script>
     <script src="lib/bootstrap4-toggle.min.js" type="text/javascript"></script>
     <script src="popup.js" type="text/javascript" defer="defer"></script>
+    <script src="options.js" type="text/javascript" defer="defer"></script>
 </head>
 
 <body>
-    <div class="app">
-        <div class="extension-description">
-            GitHub :
-            <br>
-            <a href="https://github.com/k4r1suma/holo-nonstop-extension" target="_blank">holo-nonstop-extension</a>
+    <nav class="nav nav-fill nav-tabs" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Active</a>
+        <a class="nav-item nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options" role="tab" aria-controls="nav-options" aria-selected="false">Options</a>
+        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="text-center">
+                Extension switch on this Tab
+                <input id="toggle" type="checkbox" data-toggle="toggle" data-onstyle="success" />
+            </div>
         </div>
-        <hr>
-        <div class="extension-description">
-            Extension switch on this Tab
+        <div class="tab-pane show text-center" id="nav-options" role="tabpanel" aria-labelledby="nav-options-tab">
+            <select multiple="multiple" id="my-select">
+                <option value="UCp6993wxpyDPHUpavwDFqgg">ときのそら</option>
+                <option value="UCDqI2jOz0weumE8s7paEk6g">ロボ子さん</option>
+                <option value="UC-hM6YJuNYVAmUWxeIr9FeA">さくらみこ</option>
+                <option value="UC5CwaMl1eIgY8h02uZw7u8A">星街すいせい</option>
+                <option value="UC0TXe_LYZ4scaW2XMyi5_kw">AZKi</option>
+                <option value="UCD8HOxPs4Xvsm8H0ZxXGiBw">夜空メル</option>
+                <option value="UCdn5BQ06XqgXoAxIhbqw5Rg">白上フブキ</option>
+                <option value="UCQ0UDLQCjY0rmuxCDE38FGg">夏色まつり</option>
+                <option value="UCFTLzh12_nrtzqBPsTCqenA">アキ・ローゼンタール</option>
+                <option value="UC1CfXB_kRs3C-zaeTG3oGyg">赤井はあと</option>
+                <option value="UC1opHUrw8rvnsadT-iGp7Cg">湊あくあ</option>
+                <option value="UCXTpFs_3PqI41qX2d9tL2Rw">紫咲シオン</option>
+                <option value="UC7fk0CB07ly8oSl0aqKkqFg">百鬼あやめ</option>
+                <option value="UC1suqwovbL1kzsoaZgFZLKg">癒月ちょこ</option>
+                <option value="UCvzGlP9oQwU--Y0r9id_jnA">大空スバル</option>
+                <option value="UCp-5t9SrOQwXMU7iIjQfARg">大神ミオ</option>
+                <option value="UCvaTdHTWBGv3MKj3KVqJVCw">猫又おかゆ</option>
+                <option value="UChAnqc_AY5_I3Px5dig3X1Q">戌神ころね</option>
+                <option value="UC1DCedRgGHBdm81E1llLhOQ">兎田ぺこら</option>
+                <option value="UCl_gCybOJRIgOXw6Qb4qJzQ">潤羽るしあ</option>
+                <option value="UCvInZx9h3jC2JzsIzoOebWg">不知火フレア</option>
+                <option value="UCdyqAaZDKHXg4Ahi7VENThQ">白銀ノエル</option>
+                <option value="UCCzUftO8KOVkV4wQG1vkUvg">宝鐘マリン</option>
+                <option value="UCZlDXzGoo7d44bwdNObFacg">天音かなた</option>
+                <option value="UCS9uQI-jC3DE0L4IpXyvr6w">桐生ココ</option>
+                <option value="UCqm3BQLlJfvkTsX_hvm0UmA">角巻わため</option>
+                <option value="UC1uv2Oq6kNxgATlCiez59hw">常闇トワ</option>
+                <option value="UCa9Y57gfeY0Zro_noHRVrnw">姫森ルーナ</option>
+                <option value="UCFKOVgVbGmX65RxO3EtH3iw">雪花ラミィ</option>
+                <option value="UCAWSyEs_Io8MtpY3m-zqILA">桃鈴ねね</option>
+                <option value="UCUKD-uaobj9jiqB-VXt71mA">獅白ぼたん</option>
+                <option value="UCgZuwn-O7Szh9cAgHqJ6vjw">魔乃アロエ</option>
+                <option value="UCK9V2B22uJYu3N7eR_BT9QA">尾丸ポルカ</option>
+                <option value="UC6t3-_N8A6ME1JShZHHqOMw">花咲みやび</option>
+                <option value="UCEzsociuFqVwgZuMaZqaCsg">鏡見キラ</option>
+                <option value="UCZgOv3YDEs-ZnZWDYVwJdmA">奏手イヅル</option>
+                <option value="UCKeAhJvy8zgXWbh9duVjIaQ">アルランディス</option>
+                <option value="UC9mf_ZVpouoILRY9NUIaK-w">律可</option>
+                <option value="UCNVEsYbiZjH5QLmGeSgTSzg">アステル・レダ</option>
+                <option value="UCGNI4MENvnsymYjKiZwv9eg">岸堂天真</option>
+                <option value="UCANDOlYTJT7N5jlRC3zfzVA">夕刻ロベル</option>
+                <option value="UChSvpZYRPh0FvG4SJGSga3g">影山シエン</option>
+                <option value="UCwL7dgTxKo8Y4RFIKWaf8gA">荒咬オウガ</option>
+                <option value="UCOyYb1c43VlX9rc_lT6NKQw">アユンダ・リス</option>
+                <option value="UCP0BspO_AMEe3aQqqpo89Dg">ムーナ・ホシノヴァ</option>
+                <option value="UCAoy6rzhSf4ydcYjJw3WoVg">アイラニ・イオフィフティーン</option>
+                <option value="UCLbtM3JZfRTg8v2KGag-RMw">AkiRose Ch.アキ・ローゼンタールSub</option>
+                <option value="UCHj_mh57PVMXhAUDphUQDFA">Akai Haato Sub 赤井はあと</option>
+                <option value="UCp3tgHXw_HI0QMk1K8qh3gQ">Choco subCh. 癒月ちょこ</option>
+                <option value="UCJFZiqLMntJufDCHc6bQixg">hololive ホロライブ</option>
+            </select>
+            <br />
+            <button type="button" class="btn btn-success" id="save">Save</button>
+            <button type="button" class="btn btn-info" id="load">Load</button>
+            <button type="button" class="btn btn-danger" id="deselect-all">Clear all selected</button>
+            <span id="status"></span>
         </div>
-        <hr>
-        <div class="extension-description">
-            <input id="toggle" type="checkbox" data-toggle="toggle" data-onstyle="success" />
-            <button id="optionButton" class="btn btn-light">Set Options</button>
+        <div class="tab-pane show" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="text-center">
+                <a href="https://github.com/k4r1suma/holo-nonstop-extension" target="_blank">
+                    <img src="img/GitHub-Mark-64px.png">
+                </a>
+            </div>
         </div>
     </div>
 </body>
+
+<script src="lib/jquery.multi-select.js" type="text/javascript"></script>
 
 </html>
