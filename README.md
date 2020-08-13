@@ -24,6 +24,6 @@ An extension that redirects to another Hololive livestream when current live end
 - Improve popup page
 
 ## Used Contents
-- Live Api from holofans/holoapi
-- hololive.json from Choooks22/vt-api
+- Live Api from [holofans/holoapi](https://github.com/holofans/holoapi)
+- hololive.json from [Choooks22/vt-api](https://github.com/Choooks22/vt-api)
 - Icons from font-awesome
