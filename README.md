@@ -4,8 +4,7 @@ hololive-nonstop-extension
 An extension that redirects to another Hololive livestream when current live ended
 
 ## TODO
-- Exclude channel list
-- Improve options page
+- Excluded channel list
 - Improve popup page
 
 ## Used Contents
