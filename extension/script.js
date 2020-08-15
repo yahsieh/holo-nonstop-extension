@@ -49,6 +49,13 @@ function redirectStream() {
   chrome.runtime.sendMessage(msg)
 }
 
+function setCurrentLives() {
+  chrome.storage.sync.set({
+    latestIcon: streamList.live.map((items) => items.channel.photo),
+    latestLink: streamList.live.map((items) => items.yt_video_key),
+  })
+}
+
 function main() {
   if (failedCount < 10) getStreamList()
   const newStatus = getCurrentLiveStatus()
@@ -57,6 +64,7 @@ function main() {
     redirectStream()
   }
   lastStatus = newStatus
+  setCurrentLives()
 }
 
 getStreamList()

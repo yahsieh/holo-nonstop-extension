@@ -9,6 +9,26 @@ function restoreOptions() {
   })
 }
 
+function updateLiveTab() {
+  chrome.storage.sync.get({
+    latestIcon: [],
+    latestLink: [],
+  }, (items) => {
+    $('#nav-live').empty()
+    const liveList = []
+    for (let index = 0; index < items.latestIcon.length; index++) {
+      liveList.push(
+        $(`<div class="video-avatar">
+            <a href="https://www.youtube.com/watch?v=${items.latestLink[index]}" target="_blank">
+              <img src="${items.latestIcon[index]}" height="60" width="60">
+            </a>
+          </div>`),
+      )
+    }
+    $('#nav-live').append(liveList)
+  })
+}
+
 function init() {
   chrome.tabs.query({
     active: true,
@@ -18,6 +38,7 @@ function init() {
   (tabs) => {
     currentTabId = tabs[0].id
     restoreOptions()
+    updateLiveTab()
   })
 }
 
@@ -30,3 +51,5 @@ $('#toggle').change(() => {
     chrome.storage.sync.set({ [currentTabId]: 'off' })
   }
 })
+
+setInterval(updateLiveTab, 60000)

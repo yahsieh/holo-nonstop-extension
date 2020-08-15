@@ -17,3 +17,13 @@ body {
 .tab-pane {
     padding: 20px;
 }
+
+.video-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    border: 2px solid red;
+    overflow: hidden;
+    float: left;
+    margin: 4px;
+}
