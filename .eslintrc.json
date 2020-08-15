@@ -1,0 +1,16 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "webextensions": true,
+    "jquery": true
+  },
+  "extends": ["airbnb-base"],
+  "parserOptions": {
+    "ecmaVersion": 11
+  },
+  "rules": {
+    "semi": ["error", "never"],
+    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}]
+  }
+}
