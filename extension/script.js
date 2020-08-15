@@ -1,73 +1,63 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-console */
-var streamList = {}
-var lastStatus = 'unfound'
-var failedCount = 0
-
-function main() {
-    if (failedCount < 10)
-        getStreamList()
-    let newStatus = getCurrentLiveStatus()
-    if (newStatus == 'ended' && lastStatus == 'live') {
-        lastStatus = newStatus
-        redirectStream()
-    }
-    lastStatus = newStatus
-}
+let streamList = {}
+let lastStatus = 'unfound'
+let failedCount = 0
 
 const getStreamList = async () => {
-    const response = await fetch('https://api.holotools.app/v1/live')
-    streamList = await response.json()
+  const response = await fetch('https://api.holotools.app/v1/live')
+  streamList = await response.json()
 }
 
 function getCurrentLiveStatus() {
-    let currentURL = new URL(window.location.toString())
-    let params = currentURL.searchParams
-    if (currentURL.pathname == '/watch' && params.has('v')) {
-        try {
-            let liveStreams = streamList.live.map(item => item.yt_video_key)
-            let endStreams = streamList.ended.map(item => item.yt_video_key)
-            if (liveStreams.includes(params.get('v'))) {
-                failedCount = 0
-                return 'live'
-            }
-            else if (endStreams.includes(params.get('v'))) {
-                failedCount = 0
-                return 'ended'
-            }
-            else {
-                failedCount++
-                return 'unfound'
-            }
-        } catch (e) {
-            // wait for stream list returned
-            console.log('live status unfound or waiting for response')
-            return 'unfound'
-        }
+  const currentURL = new URL(window.location.toString())
+  const params = currentURL.searchParams
+  if (currentURL.pathname === '/watch' && params.has('v')) {
+    try {
+      const liveStreams = streamList.live.map((item) => item.yt_video_key)
+      const endStreams = streamList.ended.map((item) => item.yt_video_key)
+      if (liveStreams.includes(params.get('v'))) {
+        failedCount = 0
+        return 'live'
+      }
+      if (endStreams.includes(params.get('v'))) {
+        failedCount = 0
+        return 'ended'
+      }
+      failedCount += 1
+      return 'unfound'
+    } catch (e) {
+      // wait for stream list returned
+      console.error('live status unfound or waiting for response')
+      return 'unfound'
     }
-}
-
-function redirectStream() {
-    let msg = {
-        'ended': true,
-        'nextStream': getLiveChannels()
-    }
-    chrome.runtime.sendMessage(msg)
-}
-
-function getStoredHostOrder() {
-    chrome.storage.sync.get('hostOrder', function (result) {
-        newHostOrder = result.key
-    })
+  } else {
+    return 'unfound'
+  }
 }
 
 function getLiveChannels() {
-    return [
-        streamList.live.map(items => items.channel.yt_channel_id),
-        streamList.live.map(items => items.yt_video_key)
-    ]
+  return [
+    streamList.live.map((items) => items.channel.yt_channel_id),
+    streamList.live.map((items) => items.yt_video_key),
+  ]
+}
+
+function redirectStream() {
+  const msg = {
+    ended: true,
+    nextStream: getLiveChannels(),
+  }
+  chrome.runtime.sendMessage(msg)
+}
+
+function main() {
+  if (failedCount < 10) getStreamList()
+  const newStatus = getCurrentLiveStatus()
+  if (newStatus === 'ended' && lastStatus === 'live') {
+    lastStatus = newStatus
+    redirectStream()
+  }
+  lastStatus = newStatus
 }
 
 getStreamList()
-getStoredHostOrder()
 setInterval(main, 60000)
