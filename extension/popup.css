@@ -16,6 +16,7 @@ body {
 
 .tab-pane {
     padding: 20px;
+    overflow: hidden;
 }
 
 .video-avatar {

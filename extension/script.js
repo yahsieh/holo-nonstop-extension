@@ -50,22 +50,23 @@ function redirectStream() {
 }
 
 function setCurrentLives() {
-  chrome.storage.sync.set({
-    latestIcon: streamList.live.map((items) => items.channel.photo),
-    latestLink: streamList.live.map((items) => items.yt_video_key),
-  })
+  if (streamList.live !== undefined) {
+    chrome.storage.sync.set({
+      latestIcon: streamList.live.map((items) => items.channel.photo),
+      latestLink: streamList.live.map((items) => items.yt_video_key),
+    })
+  }
 }
 
-function main() {
-  if (failedCount < 10) getStreamList()
+const main = async () => {
+  if (failedCount < 10) await getStreamList()
+  setCurrentLives()
   const newStatus = getCurrentLiveStatus()
   if (newStatus === 'ended' && lastStatus === 'live') {
     lastStatus = newStatus
     redirectStream()
   }
   lastStatus = newStatus
-  setCurrentLives()
 }
 
-getStreamList()
 setInterval(main, 60000)
