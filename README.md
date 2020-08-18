@@ -2,6 +2,7 @@ hololive-nonstop-extension
 ===
 
 An extension that redirects to another Hololive livestream when current live ended
+!!! There might be one minute lag or so to redirect after current live ended !!!
 
 ## Install Extension
 

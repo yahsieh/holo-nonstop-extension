@@ -1,10 +1,10 @@
 let currentTabId = -1
 
 function updateLiveTab(latestLives) {
-  $('#nav-live').empty()
+  $('#live-avatars').empty()
   const liveList = []
   if (latestLives.latestIcon === undefined) {
-    $('#nav-live').append($('<span>Loading...</span>'))
+    $('#live-avatars').append($('<span>Loading...</span>'))
   } else {
     const liveCounts = latestLives.latestIcon.length
     if (liveCounts !== 0) {
@@ -17,13 +17,12 @@ function updateLiveTab(latestLives) {
             </div>`),
         )
       }
-      liveList.push($(`<span>Last updated time: ${latestLives.updateTime}</span>`))
-      $('#nav-live').append(liveList)
+      $('#live-avatars').append(liveList)
+      $('#live-status').empty()
+      $('#live-status').append($(`<div class="text-right">Last updated time: ${latestLives.updateTime}</div>`))
     } else {
-      $('#nav-live').append(
-        $(`<span>No live now...</span>
-          <span>Last updated time: ${latestLives.updateTime}</span>
-          `),
+      $('#live-avatars').append(
+        $('<span>No live now...</span>'),
       )
     }
   }

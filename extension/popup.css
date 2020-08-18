@@ -28,3 +28,7 @@ body {
     float: left;
     margin: 4px;
 }
+
+#live-avatars {
+    width: 450px;
+}
