@@ -1,41 +1,46 @@
 let currentTabId = -1
 
-function restoreOptions() {
+function updateLiveTab(latestLives) {
+  $('#nav-live').empty()
+  const liveList = []
+  if (latestLives.latestIcon === undefined) {
+    $('#nav-live').append($('<span>Loading...</span>'))
+  } else {
+    const liveCounts = latestLives.latestIcon.length
+    if (liveCounts !== 0) {
+      for (let index = 0; index < liveCounts; index++) {
+        liveList.push(
+          $(`<div class="video-avatar">
+              <a href="https://www.youtube.com/watch?v=${latestLives.latestLink[index]}" target="_blank">
+                <img src="${latestLives.latestIcon[index]}" height="60" width="60">
+              </a>
+            </div>`),
+        )
+      }
+      liveList.push($(`<span>Last updated time: ${latestLives.updateTime}</span>`))
+      $('#nav-live').append(liveList)
+    } else {
+      $('#nav-live').append(
+        $(`<span>No live now...</span>
+          <span>Last updated time: ${latestLives.updateTime}</span>
+          `),
+      )
+    }
+  }
+}
+
+function restorePopup() {
   chrome.storage.sync.get({
+    latestLives: {},
     [currentTabId]: 'off',
   }, (items) => {
     // update toggle event silently
     $('#toggle').bootstrapToggle(items[currentTabId], true)
+    updateLiveTab(items.latestLives)
   })
 }
 
-function updateLiveTab() {
-  chrome.storage.sync.get(['latestIcon', 'latestLink'], (items) => {
-    $('#nav-live').empty()
-    const liveList = []
-    if (items.latestIcon === undefined) {
-      $('#nav-live').append($('<span>Loading...</span>'))
-    } else {
-      const liveCounts = items.latestIcon.length
-      if (liveCounts !== 0) {
-        for (let index = 0; index < liveCounts; index++) {
-          liveList.push(
-            $(`<div class="video-avatar">
-                <a href="https://www.youtube.com/watch?v=${items.latestLink[index]}" target="_blank">
-                  <img src="${items.latestIcon[index]}" height="60" width="60">
-                </a>
-              </div>`),
-          )
-        }
-        $('#nav-live').append(liveList)
-      } else {
-        $('#nav-live').append($('<span>No live now...</span>'))
-      }
-    }
-  })
-}
-
-function init() {
+function initPopup() {
   chrome.tabs.query({
     active: true,
     lastFocusedWindow: true,
@@ -43,12 +48,11 @@ function init() {
   },
   (tabs) => {
     currentTabId = tabs[0].id
-    restoreOptions()
-    updateLiveTab()
+    restorePopup()
   })
 }
 
-document.addEventListener('DOMContentLoaded', init)
+document.addEventListener('DOMContentLoaded', initPopup)
 $('#toggle').change(() => {
   const status = document.getElementById('toggle').checked
   if (status) {
@@ -58,5 +62,8 @@ $('#toggle').change(() => {
   }
 })
 
-updateLiveTab()
-setInterval(updateLiveTab, 60000)
+chrome.storage.onChanged.addListener((changes) => {
+  if (Object.keys(changes).includes('latestLives')) {
+    updateLiveTab(changes.latestLives.newValue)
+  }
+})

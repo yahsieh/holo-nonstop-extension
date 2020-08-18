@@ -52,8 +52,11 @@ function redirectStream() {
 function setCurrentLives() {
   if (streamList.live !== undefined) {
     chrome.storage.sync.set({
-      latestIcon: streamList.live.map((items) => items.channel.photo),
-      latestLink: streamList.live.map((items) => items.yt_video_key),
+      latestLives: {
+        latestIcon: streamList.live.map((items) => items.channel.photo),
+        latestLink: streamList.live.map((items) => items.yt_video_key),
+        updateTime: (new Date()).toTimeString().split(' ')[0],
+      },
     })
   }
 }
@@ -69,4 +72,5 @@ const main = async () => {
   lastStatus = newStatus
 }
 
+window.onload = main()
 setInterval(main, 60000)
