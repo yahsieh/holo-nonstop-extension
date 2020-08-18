@@ -69,7 +69,7 @@ function getNextStreamCandidates(streamList) {
   return ''
 }
 
-function updatehostOrder() {
+function initHostOrder() {
   chrome.storage.sync.get({
     hostOrder: [],
   }, (items) => {
@@ -90,8 +90,10 @@ chrome.runtime.onMessage.addListener(
   },
 )
 
-chrome.storage.onChanged.addListener(() => {
-  updatehostOrder()
+chrome.storage.onChanged.addListener((changes) => {
+  if (Object.keys(changes).includes('hostOrder')) {
+    hostOrder = changes.hostOrder.newValue
+  }
 })
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -107,4 +109,4 @@ chrome.runtime.onInstalled.addListener(() => {
   })
 })
 
-updatehostOrder()
+initHostOrder()
