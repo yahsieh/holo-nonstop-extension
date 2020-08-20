@@ -1,7 +1,7 @@
 {
     "name": "holo-nonstop-extension",
     "author": "k4r1suma",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Enjoy Hololive content continuously",
     "content_scripts": [{
         "matches": ["https://www.youtube.com/*"],
